@@ -1,0 +1,44 @@
+<movement>
+ <step>
+  <grasp name="one"/>
+  <pause_time>1.0</pause_time>
+  <interpolation_time>0.0</interpolation_time>
+  <loop_to_step>0.0</loop_to_step>
+  <number_loops>0.0</number_loops>
+ </step>
+ <step>
+  <grasp name="two"/>
+  <pause_time>1.0</pause_time>
+  <interpolation_time>0.0</interpolation_time>
+  <loop_to_step>0.0</loop_to_step>
+  <number_loops>0.0</number_loops>
+ </step>
+ <step>
+  <grasp name="three"/>
+  <pause_time>1.0</pause_time>
+  <interpolation_time>0.0</interpolation_time>
+  <loop_to_step>0.0</loop_to_step>
+  <number_loops>0.0</number_loops>
+ </step>
+ <step>
+  <grasp name="four"/>
+  <pause_time>1.0</pause_time>
+  <interpolation_time>0.0</interpolation_time>
+  <loop_to_step>0.0</loop_to_step>
+  <number_loops>0.0</number_loops>
+ </step>
+ <step>
+  <grasp name="five"/>
+  <pause_time>1.0</pause_time>
+  <interpolation_time>0.0</interpolation_time>
+  <loop_to_step>0.0</loop_to_step>
+  <number_loops>0.0</number_loops>
+ </step>
+ <step>
+  <grasp name="zero"/>
+  <pause_time>1.0</pause_time>
+  <interpolation_time>0.0</interpolation_time>
+  <loop_to_step>0.0</loop_to_step>
+  <number_loops>0.0</number_loops>
+ </step>
+</movement>
