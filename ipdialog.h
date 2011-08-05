@@ -25,6 +25,9 @@ public:
 	public slots:
 		void on_connectButton_clicked();
 		void on_demoButton_clicked();
+	
+	signals:
+		void connectnow(int);
 };
 
 #endif // IPDIALOG_H

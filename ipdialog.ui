@@ -16,7 +16,7 @@
   <widget class="QLabel" name="masterText">
    <property name="geometry">
     <rect>
-     <x>20</x>
+     <x>10</x>
      <y>20</y>
      <width>81</width>
      <height>16</height>
@@ -32,7 +32,7 @@
   <widget class="QLabel" name="localText">
    <property name="geometry">
     <rect>
-     <x>20</x>
+     <x>10</x>
      <y>50</y>
      <width>71</width>
      <height>16</height>
@@ -48,9 +48,9 @@
   <widget class="QLineEdit" name="masterEdit">
    <property name="geometry">
     <rect>
-     <x>120</x>
+     <x>100</x>
      <y>20</y>
-     <width>113</width>
+     <width>141</width>
      <height>20</height>
     </rect>
    </property>
@@ -58,9 +58,9 @@
   <widget class="QLineEdit" name="localEdit">
    <property name="geometry">
     <rect>
-     <x>120</x>
+     <x>100</x>
      <y>50</y>
-     <width>113</width>
+     <width>141</width>
      <height>20</height>
     </rect>
    </property>
@@ -81,7 +81,7 @@
   <widget class="QPushButton" name="demoButton">
    <property name="geometry">
     <rect>
-     <x>130</x>
+     <x>140</x>
      <y>80</y>
      <width>75</width>
      <height>23</height>

@@ -24,9 +24,11 @@ void IPDialog::on_connectButton_clicked()
 	masteruri = Qmasteruri.toStdString();
 	QString Qlocalip = localEdit->text();
 	localip = Qlocalip.toStdString();
+	emit connectnow(1);
 }
 
 void IPDialog::on_demoButton_clicked()
 {
-	conn = 0;
+	//conn = 0;
+	emit connectnow(0);
 }
