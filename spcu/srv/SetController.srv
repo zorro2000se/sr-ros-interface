@@ -1,0 +1,10 @@
+# Used to set the state of the SPCU controllers.
+int16 valve
+bool active
+int16 sensor
+int16 target
+int16 p
+int16 i
+int16 d
+---
+

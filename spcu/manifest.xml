@@ -1,0 +1,18 @@
+<package>
+  <description brief="spcu">
+
+     spcu
+
+  </description>
+  <author>Mark Addison</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/spcu</url>
+  <depend package="std_msgs"/>
+  <depend package="rospy"/>
+  <depend package="roscpp"/>
+  <depend package="cereal_port"/>
+
+</package>
+
+
