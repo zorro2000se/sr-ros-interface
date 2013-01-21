@@ -70,7 +70,7 @@ namespace controller {
       if (!joint_state_)
       {
         ROS_ERROR("SrhVelocityController could not find joint named \"%s\"\n",
-                  j1.c_str());
+                  joint_name.c_str());
         return false;
       }
 
@@ -78,7 +78,7 @@ namespace controller {
       if (!joint_state_2)
       {
         ROS_ERROR("SrhVelocityController could not find joint named \"%s\"\n",
-                  j2.c_str());
+                  joint_name.c_str());
         return false;
       }
       if (!joint_state_2->calibrated_)
@@ -109,7 +109,6 @@ namespace controller {
     pid_controller_velocity_ = pid_velocity;
 
     serve_set_gains_ = node_.advertiseService("set_gains", &SrhJointVelocityController::setGains, this);
-    serve_reset_gains_ = node_.advertiseService("reset_gains", &SrhJointVelocityController::resetGains, this);
 
     after_init();
     return true;
@@ -159,36 +158,6 @@ namespace controller {
     friction_deadband = req.friction_deadband;
     velocity_deadband = req.deadband;
 
-    //Setting the new parameters in the parameter server
-    node_.setParam("pid/p", req.p);
-    node_.setParam("pid/i", req.i);
-    node_.setParam("pid/d", req.d);
-    node_.setParam("pid/i_clamp", req.i_clamp);
-
-    node_.setParam("pid/max_force", max_force_demand);
-    node_.setParam("pid/velocity_deadband", velocity_deadband);
-    node_.setParam("pid/friction_deadband", friction_deadband);
-
-    return true;
-  }
-
-  bool SrhJointVelocityController::resetGains(std_srvs::Empty::Request& req, std_srvs::Empty::Response& resp)
-  {
-    if( has_j2 )
-      command_ = (joint_state_->velocity_ + joint_state_2->velocity_) / 2.0;
-    else
-      command_ = joint_state_->velocity_;
-
-    if (!pid_controller_velocity_->init(ros::NodeHandle(node_, "velocity_pid")))
-      return false;
-
-    read_parameters();
-
-    if( has_j2 )
-      ROS_WARN_STREAM("Reseting controller gains: " << joint_state_->joint_->name << " and " << joint_state_2->joint_->name);
-    else
-      ROS_WARN_STREAM("Reseting controller gains: " << joint_state_->joint_->name);
-
     return true;
   }
 
@@ -237,15 +206,12 @@ namespace controller {
       commanded_effort = min( commanded_effort, max_force_demand );
       commanded_effort = max( commanded_effort, -max_force_demand );
 
-      if( has_j2 )
-        commanded_effort += friction_compensator->friction_compensation( (joint_state_->position_ + joint_state_2->position_) ,(joint_state_->velocity_ + joint_state_2->velocity_), int(commanded_effort), friction_deadband );
-      else
-        commanded_effort += friction_compensator->friction_compensation( joint_state_->position_, joint_state_->velocity_, int(commanded_effort), friction_deadband );
+      commanded_effort += friction_compensator->friction_compensation( (joint_state_->position_ + joint_state_2->position_) ,(joint_state_->velocity_ + joint_state_2->velocity_), int(commanded_effort), friction_deadband );
     }
     if( has_j2 )
       joint_state_2->commanded_effort_ = commanded_effort;
     else
-      joint_state_->commanded_effort_ = commanded_effort;
+      joint_state_2->commanded_effort_ = commanded_effort;
 
     if(loop_count_ % 10 == 0)
     {

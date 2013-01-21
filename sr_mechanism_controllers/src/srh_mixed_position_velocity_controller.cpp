@@ -119,7 +119,6 @@ namespace controller {
     pid_controller_velocity_ = pid_velocity;
 
     serve_set_gains_ = node_.advertiseService("set_gains", &SrhMixedPositionVelocityJointController::setGains, this);
-    serve_reset_gains_ = node_.advertiseService("reset_gains", &SrhMixedPositionVelocityJointController::resetGains, this);
 
     ROS_DEBUG_STREAM(" joint_state name: " << joint_state_->joint_->name);
     ROS_DEBUG_STREAM(" In Init: " << getJointName() << " This: " << this
@@ -195,48 +194,6 @@ namespace controller {
     //setting the position controller parameters
     min_velocity_ = req.min_velocity;
     max_velocity_ = req.max_velocity;
-
-    //Setting the new parameters in the parameter server
-    node_.setParam("position_pid/p", req.position_p);
-    node_.setParam("position_pid/i", req.position_i);
-    node_.setParam("position_pid/d", req.position_d);
-    node_.setParam("position_pid/i_clamp", req.position_i_clamp);
-
-    node_.setParam("velocity_pid/p", req.velocity_p);
-    node_.setParam("velocity_pid/i", req.velocity_i);
-    node_.setParam("velocity_pid/d", req.velocity_d);
-    node_.setParam("velocity_pid/i_clamp", req.velocity_i_clamp);
-
-    node_.setParam("position_pid/min_velocity", min_velocity_);
-    node_.setParam("position_pid/max_velocity", max_velocity_);
-    node_.setParam("position_pid/position_deadband", position_deadband);
-
-    node_.setParam("velocity_pid/friction_deadband", friction_deadband);
-    node_.setParam("velocity_pid/max_force", max_force_demand);
-    node_.setParam("motor_min_force_threshold", motor_min_force_threshold);
-
-    return true;
-  }
-
-  bool SrhMixedPositionVelocityJointController::resetGains(std_srvs::Empty::Request& req, std_srvs::Empty::Response& resp)
-  {
-    if( has_j2 )
-      command_ = joint_state_->position_ + joint_state_2->position_;
-    else
-      command_ = joint_state_->position_;
-
-    if (!pid_controller_position_->init(ros::NodeHandle(node_, "position_pid")))
-      return false;
-
-    if (!pid_controller_velocity_->init(ros::NodeHandle(node_, "velocity_pid")))
-      return false;
-
-    read_parameters();
-
-    if( has_j2 )
-      ROS_WARN_STREAM("Reseting controller gains: " << joint_state_->joint_->name << " and " << joint_state_2->joint_->name);
-    else
-      ROS_WARN_STREAM("Reseting controller gains: " << joint_state_->joint_->name);
 
     return true;
   }

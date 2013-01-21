@@ -25,8 +25,6 @@ libmagick:
   debian: libmagick++-dev
 
 liblapack:
-  ubuntu:
-    lucid: liblapack-dev
-    oneiric: liblapack-dev
+  ubuntu: liblapack-dev
   debian: liblapack-dev
 

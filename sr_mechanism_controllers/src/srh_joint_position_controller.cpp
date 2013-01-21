@@ -114,7 +114,6 @@ namespace controller {
     pid_controller_position_ = pid_position;
 
     serve_set_gains_ = node_.advertiseService("set_gains", &SrhJointPositionController::setGains, this);
-    serve_reset_gains_ = node_.advertiseService("reset_gains", &SrhJointPositionController::resetGains, this);
 
     after_init();
     return true;
@@ -147,8 +146,7 @@ namespace controller {
   {
     if( has_j2 )
       command_ = joint_state_->position_ + joint_state_2->position_;
-    else
-      command_ = joint_state_->position_;
+    command_ = joint_state_->position_;
     pid_controller_position_->reset();
     read_parameters();
 
@@ -165,35 +163,6 @@ namespace controller {
     friction_deadband = req.friction_deadband;
     position_deadband = req.deadband;
 
-    //Setting the new parameters in the parameter server
-    node_.setParam("pid/p", req.p);
-    node_.setParam("pid/i", req.i);
-    node_.setParam("pid/d", req.d);
-    node_.setParam("pid/i_clamp", req.i_clamp);
-    node_.setParam("pid/max_force", max_force_demand);
-    node_.setParam("pid/position_deadband", position_deadband);
-    node_.setParam("pid/friction_deadband", friction_deadband);
-
-    return true;
-  }
-
-  bool SrhJointPositionController::resetGains(std_srvs::Empty::Request& req, std_srvs::Empty::Response& resp)
-  {
-    if( has_j2 )
-      command_ = joint_state_->position_ + joint_state_2->position_;
-    else
-      command_ = joint_state_->position_;
-
-    if (!pid_controller_position_->init(ros::NodeHandle(node_, "pid")))
-      return false;
-
-    read_parameters();
-
-    if( has_j2 )
-      ROS_WARN_STREAM("Reseting controller gains: " << joint_state_->joint_->name << " and " << joint_state_2->joint_->name);
-    else
-      ROS_WARN_STREAM("Reseting controller gains: " << joint_state_->joint_->name);
-
     return true;
   }
 
@@ -204,6 +173,8 @@ namespace controller {
 
   void SrhJointPositionController::update()
   {
+    ROS_DEBUG_STREAM("updating controller: " << joint_name_);
+
     if( !has_j2)
     {
       if (!joint_state_->calibrated_)
