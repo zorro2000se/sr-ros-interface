@@ -10,48 +10,48 @@
     <unit name="meter" meter="1"/>
     <up_axis>Z_UP</up_axis>
   </asset>
-	<library_effects>
-		<effect id="black_spec-fx" name="black_spec-fx">
-			<profile_COMMON>
-				<technique sid="blender">
-					<phong>
-						<emission>
-							<color>0.00000 0.00000 0.00000 1</color>
-						</emission>
-						<ambient>
-							<color>0.05997 0.05997 0.05997 1</color>
-						</ambient>
-						<diffuse>
-							<color>0.16355 0.16355 0.16355 1</color>
-						</diffuse>
-						<specular>
-							<color>0.36585 0.36585 0.36585 1</color>
-						</specular>
-						<shininess>
-							<float>12.5</float>
-						</shininess>
-						<reflective>
-							<color>1.00000 1.00000 1.00000 1</color>
-						</reflective>
-						<reflectivity>
-							<float>0.0</float>
-						</reflectivity>
-						<transparent>
-							<color>1 1 1 1</color>
-						</transparent>
-						<transparency>
-							<float>0.0</float>
-						</transparency>
-					</phong>
-				</technique>
-			</profile_COMMON>
-		</effect>
-	</library_effects>
-	<library_materials>
-		<material id="black_spec" name="black_spec">
-			<instance_effect url="#black_spec-fx"/>
-		</material>
-	</library_materials>
+  <library_effects>
+    <effect id="black_spec-fx" name="black_spec-fx">
+      <profile_COMMON>
+	<technique sid="blender">
+	  <phong>
+	    <emission>
+	      <color>0.00000 0.00000 0.00000 1</color>
+	    </emission>
+	    <ambient>
+	      <color>0.05997 0.05997 0.05997 1</color>
+	    </ambient>
+	    <diffuse>
+	      <color>0.16355 0.16355 0.16355 1</color>
+	    </diffuse>
+	    <specular>
+	      <color>0.36585 0.36585 0.36585 1</color>
+	    </specular>
+	    <shininess>
+	      <float>12.5</float>
+	    </shininess>
+	    <reflective>
+	      <color>1.00000 1.00000 1.00000 1</color>
+	    </reflective>
+	    <reflectivity>
+	      <float>0.0</float>
+	    </reflectivity>
+	    <transparent>
+	      <color>1 1 1 1</color>
+	    </transparent>
+	    <transparency>
+	      <float>0.0</float>
+	    </transparency>
+	  </phong>
+	</technique>
+      </profile_COMMON>
+    </effect>
+  </library_effects>
+  <library_materials>
+    <material id="black_spec" name="black_spec">
+      <instance_effect url="#black_spec-fx"/>
+    </material>
+  </library_materials>
   <library_geometries>
     <geometry id="Muscle_base_Model_for_ROS_2_-mesh" name="Muscle base Model for ROS(2)">
       <mesh>
@@ -88,20 +88,21 @@
       <extra><technique profile="MAYA"><double_sided>1</double_sided></technique></extra>
     </geometry>
   </library_geometries>
+  <library_controllers/>
   <library_visual_scenes>
     <visual_scene id="Scene" name="Scene">
       <node id="Muscle_base_Model_for_ROS_2_" name="Muscle_base_Model_for_ROS_2_" type="NODE">
         <matrix sid="transform">1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1</matrix>
         <instance_geometry url="#Muscle_base_Model_for_ROS_2_-mesh">
-				<bind_material>
-						<technique_common>
-							<instance_material symbol="black_spec" target="#black_spec">
-								<bind_vertex_input input_semantic="TEXCOORD" input_set="1" semantic="CHANNEL1"/>
-							</instance_material>
-						</technique_common>
-					</bind_material>
-				</instance_geometry>
-	      </node>
+	  <bind_material>
+	    <technique_common>
+	      <instance_material symbol="black_spec" target="#black_spec">
+		<bind_vertex_input input_semantic="TEXCOORD" input_set="1" semantic="CHANNEL1"/>
+	      </instance_material>
+	    </technique_common>
+	  </bind_material>
+	</instance_geometry>
+      </node>
     </visual_scene>
   </library_visual_scenes>
   <scene>
