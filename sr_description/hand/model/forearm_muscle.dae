@@ -88,7 +88,6 @@
       <extra><technique profile="MAYA"><double_sided>1</double_sided></technique></extra>
     </geometry>
   </library_geometries>
-  <library_controllers/>
   <library_visual_scenes>
     <visual_scene id="Scene" name="Scene">
       <node id="Muscle_base_Model_for_ROS_2_" name="Muscle_base_Model_for_ROS_2_" type="NODE">
