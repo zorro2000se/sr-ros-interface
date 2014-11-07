@@ -8,7 +8,7 @@
 
   <xacro:include filename="$(find sr_description)/hand/xacro/palm/palm.gazebo.xacro" />
   <xacro:include filename="$(find sr_description)/hand/xacro/palm/palm.transmission.xacro" />
-  
+
   <!-- muscletrans is true for muscle transmission or false for motor transmission -->
   <!-- prefix can be anything but usually is "r_" or  "l_" for right and left hands distinction -->
   <!-- reflect is either 1 (for right hand) or -1 (for left hand) -->
@@ -24,7 +24,7 @@
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0" />
         <geometry name="${prefix}palm_visual">
-          <mesh filename="package://sr_description/hand/model/palm.dae" 
+          <mesh filename="package://sr_description/hand/model/palm.dae"
 					 scale="${reflect*0.001} 0.001 0.001" />
         </geometry>
         <material name="Grey"/>
@@ -41,16 +41,16 @@
         <geometry>
           <box size="0.018 0.024 0.004" />
         </geometry>
-      </collision> 
+      </collision>
       <collision>
         <origin xyz="${reflect*-0.030} 0 0.009" rpy="0 0 0" />
 	      <geometry>
             <box size="0.020 0.024 0.040" />
           </geometry>
-      </collision> 
+      </collision>
     </link>
 
-    <joint name="${prefix}WRJ1" type="revolute">
+    <joint name="${prefix}WRJ1" type="fixed">
       <parent link="${parent}"/>
       <child link="${prefix}palm"/>
       <origin xyz="0 0 0.034" rpy="0 0 0" />
@@ -59,7 +59,7 @@
       effort="30" velocity="1.0"/>
       <dynamics damping="0.1"/>
     </joint>
-    
+
     <!-- extensions -->
     <xacro:shadowhand_palm_transmission muscletrans="${muscletrans}" prefix="${prefix}" />
     <xacro:shadowhand_palm_gazebo prefix="${prefix}" />
