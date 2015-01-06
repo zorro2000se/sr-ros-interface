@@ -18,7 +18,12 @@
 
 VERBOSE = 1
 
-class Grasp:
+import sr_grasp
+
+class Grasp(sr_grasp.Grasp):
+    pass
+
+class GraspOld:
 	def __init__(self):
 		self.grasp_name = ""
 		self.joints_and_positions = {}

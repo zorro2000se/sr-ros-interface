@@ -80,6 +80,14 @@ class Grasp(moveit_msgs.msg.Grasp):
         """
         self._set_posture_point(self.grasp_posture, *args, **kwargs)
 
+    def get_grasp_point_positions(self, point=0):
+        traj = self.grasp_posture
+        joints = {}
+        if len(traj.points) <= point + 1:
+            for i in range(len(traj.joint_names)):
+                joints[traj.joint_names[i]] = degrees(traj.points[point].positions[i])
+        return joints
+
     def _set_posture_point(self, posture, positions, point=0):
         """Set the posture positions using a dict of joint positions."""
         # XXX: Why have we been doing this?
@@ -112,8 +120,18 @@ class Grasp(moveit_msgs.msg.Grasp):
 
     @joints_and_positions.setter
     def joints_and_positions(self, val):
-        self.set_grasp_point(val)
+        logerr("MIGRATION: You can no longer update the joints_and_positions dict directly. See the set_joint_and_position method.")
 
+    def set_joint_and_position(self, name, val, point=0):
+        joints = self.get_grasp_point_positions(point=point)
+        joints[name] = val
+        self.set_grasp_point(joints)
+
+    @property
+    def grasp_name(self): return self.id
+
+    @grasp_name.setter
+    def grasp_name(self, name): self.id = name
 
 
 class GraspStash(object):
@@ -121,20 +139,21 @@ class GraspStash(object):
     Interface to the list of grasps stored in a YAML file. Reads a parameter
     for the file name, so nodes can co-ordinate or can be given an explicit
     file path. You must call load_all() yourself, the constructor doesn't do
-    that for you, it gives and empty stash.
+    that for you, it gives and empty stash. The default is to use grasps.xml
+    from sr_grasp.
     """
-    def __init__(self, graspfile=None):
+    def __init__(self, grasps_file=None):
         # Store of all loaded grasps, indexed on grasp.id.
         self.grasps = {}
 
         # Set the YAML file to read and write grasps from.
-        if graspfile == None:
+        if grasps_file == None:
             rp = rospkg.RosPack()
             self.grasps_file = get_param('~grasps_file',
                     default = os.path.join(
                     rp.get_path('sr_grasp'), 'resource', 'grasps.yaml') )
         else:
-            self.grasps_file = graspfile
+            self.grasps_file = grasps_file
 
     def get_grasp_array(self):
         arr = GraspArray()
@@ -195,7 +214,10 @@ class GraspStash(object):
         self.load_all()
 
     def write_grasp_to_file(self, grasp):
-        self.save_yaml_file()
+        stash = GraspStash(grasps_file=self.grasps_file)
+        stash.load_all()
+        stash.put_grasp(grasp)
+        stash.save_yaml_file()
 
     def parse_tree(self, xmlfilename):
         self.load_all()
