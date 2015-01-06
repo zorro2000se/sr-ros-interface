@@ -1,6 +1,7 @@
 
 from copy import deepcopy
 import os, yaml, string
+from math import degrees
 from rospy import logerr, loginfo, get_param
 import rospkg, genpy
 import moveit_msgs.msg
@@ -106,7 +107,7 @@ class Grasp(moveit_msgs.msg.Grasp):
         jp = {}
         if len(self.grasp_posture.points) > 0:
             for i,name in enumerate(self.grasp_posture.joint_names):
-                jp[name] = self.grasp_posture.points[0].positions[i]
+                jp[name] = degrees(self.grasp_posture.points[0].positions[i])
         return jp
 
     @joints_and_positions.setter
