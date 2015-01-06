@@ -118,17 +118,23 @@ class Grasp(moveit_msgs.msg.Grasp):
 
 class GraspStash(object):
     """
-    Interface to the list of grasps stored in the system. Clients should all
-    use this library so that it can deal with the detail of the undelying
-    storage.
+    Interface to the list of grasps stored in a YAML file. Reads a parameter
+    for the file name, so nodes can co-ordinate or can be given an explicit
+    file path. You must call load_all() yourself, the constructor doesn't do
+    that for you, it gives and empty stash.
     """
-    def __init__(self):
+    def __init__(self, graspfile=None):
         # Store of all loaded grasps, indexed on grasp.id.
         self.grasps = {}
-        rp = rospkg.RosPack()
-        self.grasps_file = get_param('~grasps_file',
-                default = os.path.join(
-                rp.get_path('sr_grasp'), 'resource', 'grasps.yaml') )
+
+        # Set the YAML file to read and write grasps from.
+        if graspfile == None:
+            rp = rospkg.RosPack()
+            self.grasps_file = get_param('~grasps_file',
+                    default = os.path.join(
+                    rp.get_path('sr_grasp'), 'resource', 'grasps.yaml') )
+        else:
+            self.grasps_file = graspfile
 
     def get_grasp_array(self):
         arr = GraspArray()

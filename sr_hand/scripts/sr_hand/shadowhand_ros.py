@@ -109,9 +109,7 @@ class ShadowHand_ROS():
         ###
         # Grasps
         self.grasp_parser = GraspParser()
-
-        self.rootPath = rospkg.RosPack().get_path('sr_hand')
-        self.grasp_parser.parse_tree(self.rootPath+"/scripts/sr_hand/grasps.xml")
+        self.grasp_parser.load_all()
 
         self.grasp_interpoler = 0
         self.pub = rospy.Publisher('srh/sendupdate', sendupdate, queue_size=1, latch=True)
