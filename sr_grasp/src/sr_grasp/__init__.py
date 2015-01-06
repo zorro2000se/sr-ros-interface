@@ -107,7 +107,7 @@ class GraspStash(object):
     """
     def __init__(self):
         # Store of all loaded grasps, indexed on grasp.id.
-        self._store = {}
+        self.grasps = {}
         rp = rospkg.RosPack()
         self.grasps_file = get_param('~grasps_file',
                 default = os.path.join(
@@ -115,7 +115,7 @@ class GraspStash(object):
 
     def get_all(self):
         """Return list of all grasps."""
-        return self._store.values();
+        return self.grasps.values();
 
     def get_grasp_array(self):
         arr = GraspArray()
@@ -133,7 +133,7 @@ class GraspStash(object):
 
     def size(self):
         """Return the number of grasps."""
-        return len(self._store)
+        return len(self.grasps)
 
     def put_grasp(self, grasp):
         """Stash the given grasp, using it's id field, which must be set."""
@@ -142,7 +142,7 @@ class GraspStash(object):
         # Up convert a plain grasp msg to our wrapper
         #if isinstance(grasp, moveit_msgs.msg.Grasp):
         #    grasp = Grasp.from_msg(grasp)
-        self._store[grasp.id] = grasp
+        self.grasps[grasp.id] = grasp
 
     def load_all(self):
         """Load all configured sources of grasps into the stash."""
