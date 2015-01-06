@@ -17,10 +17,14 @@
 #
 import xml.etree.ElementTree as ET
 from sr_hand.Grasp import Grasp
+import sr_grasp
 
 DEBUG = 0
 
-class GraspParser():
+class GraspParser(sr_grasp.GraspStash):
+    pass
+
+class GraspParserXml():
     """
     Parses a XML file describing a grasp.
     """

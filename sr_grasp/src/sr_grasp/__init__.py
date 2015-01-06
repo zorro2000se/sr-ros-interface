@@ -96,6 +96,22 @@ class Grasp(moveit_msgs.msg.Grasp):
             jtp.positions.append(pos)
         posture.points[point] = jtp
 
+    # sr_hand compatibility
+    @property
+    def joints_and_positions(self):
+        """
+        Return dict of joint positions for the first grasp point. Empty dict
+        if no grasp point set.
+        """
+        jp = {}
+        if len(self.grasp_posture.points) > 0:
+            for i,name in enumerate(self.grasp_posture.joint_names):
+                jp[name] = self.grasp_posture.points[0].positions[i]
+        return jp
+
+    @joints_and_positions.setter
+    def joints_and_positions(self, val):
+        self.set_grasp_point(val)
 
 
 
@@ -166,3 +182,13 @@ class GraspStash(object):
         with open(fname, "w") as txtfile:
             txtfile.write(self.as_yaml())
 
+    # sr_hand compatibility interface
+    # sr_hand side also access self.grasps as a dict
+    def refresh(self):
+        self.load_all()
+
+    def write_grasp_to_file(self, grasp):
+        self.save_yaml_file()
+
+    def parse_tree(self, xmlfilename):
+        self.load_all()
