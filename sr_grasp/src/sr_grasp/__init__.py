@@ -113,23 +113,14 @@ class GraspStash(object):
                 default = os.path.join(
                 rp.get_path('sr_grasp'), 'resource', 'grasps.yaml') )
 
-    def get_all(self):
-        """Return list of all grasps."""
-        return self.grasps.values();
-
     def get_grasp_array(self):
         arr = GraspArray()
-        arr.grasps = self.get_all()
+        arr.grasps = self.grasps.values()
         return arr
-
-    def get_grasp(self, id):
-        """Return a single grasp from the stash from it's id field."""
-        Grasp()
-        return Grasp;
 
     def get_grasp_at(self, idx):
         """Return the Grasp at the given index."""
-        return self.get_all()[idx]
+        return self.grasps.values()[idx]
 
     def size(self):
         """Return the number of grasps."""

@@ -36,7 +36,7 @@ class QuickGraspNode(object):
             rospy.logerr("No grasps found!")
             raise Exception("No Grasps")
         else:
-            self.grasp = self.stash.get_all()[0]
+            self.grasp = self.stash.grasps.values()[0]
         #print self.grasp
         rospy.loginfo("Looking for hand...")
         self.hand = ShadowHand_ROS()
@@ -76,7 +76,7 @@ if __name__ == '__main__':
     while node:
         print ""
         print "Grasps:"
-        for i, g in enumerate(node.stash.get_all()):
+        for i, g in enumerate(node.stash.grasps.values()):
             print str(i) + " - " + g.id
         print "Current grasp: %s"%node.grasp.id
         print "Number select grasp, z zero hand, g grasp, p pre-grasp, n new grasp, s save grasps, q quit"
