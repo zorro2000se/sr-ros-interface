@@ -8,11 +8,11 @@
 
 import sys
 import genpy
-from sr_hand.grasps_parser import GraspParser 
+from sr_hand.grasps_parser import GraspParserXml
 import sr_grasp
 from sr_robot_msgs.msg import GraspArray
 
-parser = GraspParser()
+parser = GraspParserXml()
 parser.parse_tree(xml_filename=sys.argv[1])
 
 grasps = GraspArray()
