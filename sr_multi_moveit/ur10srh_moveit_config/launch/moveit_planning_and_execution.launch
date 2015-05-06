@@ -22,4 +22,7 @@
     <arg name="config" value="true"/>
     <arg name="debug" value="$(arg debug)"/>
   </include>
+
+  <!-- adding the connection to a database -->
+  <include file="$(find ur10srh_moveit_config)/launch/default_warehouse_db.launch" />
 </launch>
