@@ -15,6 +15,7 @@
 # You should have received a copy of the GNU General Public License along
 # with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+from math import radians, degrees
 import rospy
 
 from sr_robot_commander import SrRobotCommander
@@ -98,3 +99,27 @@ class SrHandCommander(SrRobotCommander):
         Returns an object containing tactile data. The structure of the data is different for every tactile_type .
         """
         return self._tactiles.get_tactile_state()
+
+    def _filter_targets(self, targets):
+        # convert to radians
+        filtered = {jname: radians(float(pos)) for jname, pos in targets.items()}
+
+        # convert J1 and J2 in J0
+        for finger in [self._prefix + 'FF', self._prefix + 'MF', self._prefix + 'RF', self._prefix + 'LF']:
+            if (finger + 'J0') in filtered:
+                filtered[finger + 'J1'] = filtered[finger + 'J0']/2
+                filtered[finger + 'J2'] = filtered[finger + 'J1']
+                del filtered[finger + 'J0']
+        return filtered
+
+    def _filter_states(self, states):
+        # convert to degrees and filter the joint states for this robot
+        filtered = {jname: degrees(float(pos)) for jname, pos in states.items() if self._prefix in jname}
+
+        # convert J0 in J1 and J2
+        for finger in [self._prefix + 'FF', self._prefix + 'MF', self._prefix + 'RF', self._prefix + 'LF']:
+            if (finger + 'J1') in filtered and (finger + 'J2') in filtered:
+                filtered[finger + 'J0'] = filtered[finger + 'J1'] + filtered[finger + 'J2']
+                del filtered[finger + 'J1']
+                del filtered[finger + 'J2']
+        return filtered

@@ -74,26 +74,42 @@ class SrRobotCommander(object):
         else:
             rospy.logwarn("No plans where made, not executing anything.")
 
-    def move_to_joint_value_target(self, joint_states, wait=True):
+    def move_to_joint_value_target(self, joint_states, wait=True, use_prefix=False):
         """
         Set target of the robot's links and moves to it.
         @param joint_states - dictionary with joint name and value. It can contain only joints values of which need to
         be changed.
         @param wait - should method wait for movement end or not
+        @param use_prefix - it determines if the prefix of this commander (group) should be used to prepend it to the joint names in joint_states
         """
         self._move_group_commander.set_start_state_to_current_state()
-        self._move_group_commander.set_joint_value_target(joint_states)
+
+        if use_prefix:
+            joint_targets = {self._prefix + jname: value for (jname, value) in joint_states.items()}
+        else:
+            joint_targets = joint_states
+
+        joint_targets = self._filter_targets(joint_targets)
+        self._move_group_commander.set_joint_value_target(joint_targets)
         self._move_group_commander.go(wait=wait)
 
-    def plan_to_joint_value_target(self, joint_states):
+    def plan_to_joint_value_target(self, joint_states, use_prefix=False):
         """
         Set target of the robot's links and plans.
         @param joint_states - dictionary with joint name and value. It can contain only joints values of which need to
         be changed.
+        @param use_prefix - it determines if the prefix of this commander (group) should be used to prepend it to the joint names in joint_states
         This is a blocking method.
         """
         self._move_group_commander.set_start_state_to_current_state()
-        self._move_group_commander.set_joint_value_target(joint_states)
+
+        if use_prefix:
+            joint_targets = {self._prefix + jname: value for (jname, value) in joint_states.items()}
+        else:
+            joint_targets = joint_states
+
+        joint_targets = self._filter_targets(joint_targets)
+        self._move_group_commander.set_joint_value_target(joint_targets)
         self.__plan = self._move_group_commander.plan()
 
     def move_to_named_target(self, name, wait=True):
@@ -116,7 +132,7 @@ class SrRobotCommander(object):
         self._move_group_commander.set_named_target(name)
         self.__plan = self._move_group_commander.plan()
 
-    def get_joints_position(self):
+    def _get_joints_position(self):
         """
         Returns joints position
         @return - dictionary with joints positions
@@ -124,13 +140,20 @@ class SrRobotCommander(object):
         with self._joint_states_lock:
             return self._joints_position
 
+    def get_joints_position(self):
+        """
+        Returns joints position
+        @return - dictionary with joints positions
+        """
+        return self._filter_states(self._get_joints_position())
+
     def get_joints_velocity(self):
         """
         Returns joints velocities
         @return - dictionary with joints velocities
         """
         with self._joint_states_lock:
-            return self._joints_velocity
+            return self._filter_states(self._joints_velocity)
 
     def _get_joints_effort(self):
         """
@@ -138,7 +161,7 @@ class SrRobotCommander(object):
         @return - dictionary with joints efforts
         """
         with self._joint_states_lock:
-            return self._joints_effort
+            return self._filter_states(self._joints_effort)
 
     def run_joint_trajectory(self, joint_trajectory):
         """
@@ -239,7 +262,7 @@ class SrRobotCommander(object):
         Fill a trajectory point with the current position of the robot. It will serve as a base to move only the
         joints the user specifies in the move_to_joint_value_target_unsafe
         """
-        current_joints_position = self.get_joints_position()
+        current_joints_position = self._get_joints_position()
         if len(current_joints_position) >= len(self._trajectory_goal.trajectory.joint_names):
             for i, joint_name in enumerate(self._trajectory_goal.trajectory.joint_names):
                 self._trajectory_goal.trajectory.points[0].positions[i] = current_joints_position[joint_name]
@@ -259,7 +282,13 @@ class SrRobotCommander(object):
             i = self._trajectory_goal.trajectory.joint_names.index(name)
             self._trajectory_goal.trajectory.points[0].positions[i] = pos
 
-    def move_to_joint_value_target_unsafe(self, joint_states, time=0.002, wait=True):
+    def _filter_targets(self, targets):
+        return targets
+
+    def _filter_states(self, states):
+        return states
+
+    def move_to_joint_value_target_unsafe(self, joint_states, time=0.002, wait=True, use_prefix=False):
         """
         Set target of the robot's links and moves to it.
         @param joint_states - dictionary with joint name and value. It can contain only joints values of which need to
@@ -267,9 +296,17 @@ class SrRobotCommander(object):
         @param time - time in s (counting from now) for the robot to reach the target (it needs to be greater than 0.0
                         for it not to be rejected by the trajectory controller)
         @param wait - should method wait for movement end or not
+        @param use_prefix - it determines if the prefix of this commander (group) should be used to prepend it to the joint names in joint_states
         """
         self._update_default_trajectory()
-        self._set_targets_to_default_trajectory(joint_states)
+
+        if use_prefix:
+            joint_targets = {self._prefix + jname: value for (jname, value) in joint_states.items()}
+        else:
+            joint_targets = joint_states
+
+        joint_targets = self._filter_targets(joint_targets)
+        self._set_targets_to_default_trajectory(joint_targets)
         self._trajectory_goal.trajectory.points[0].time_from_start = rospy.Duration.from_sec(time)
         self._client.send_goal(self._trajectory_goal)
 
