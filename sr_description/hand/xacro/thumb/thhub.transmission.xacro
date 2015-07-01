@@ -18,7 +18,7 @@
     </xacro:if> 
     <!-- motor hand -->
     <xacro:unless value="${muscletrans}">
-      <transmission type="sr_mechanism_model/SimpleTransmission" name="${prefix}thhub_transmission">
+      <transmission type="transmission_interface/SimpleTransmission" name="${prefix}thhub_transmission">
       <actuator name="${prefix}THJ3" />
       <joint name="${prefix}THJ3" />
       <mechanicalReduction>1</mechanicalReduction>

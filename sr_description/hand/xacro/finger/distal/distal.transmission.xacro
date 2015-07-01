@@ -20,7 +20,7 @@
     </xacro:if> 
     <!-- motor hand -->
     <xacro:unless value="${muscletrans}">
-      <transmission type="sr_mechanism_model/SimpleTransmission" name="${prefix}${link_prefix}distal_transmission">
+      <transmission type="transmission_interface/SimpleTransmission" name="${prefix}${link_prefix}distal_transmission">
       <actuator name="${prefix}${joint_prefix}J1" />
       <joint name="${prefix}${joint_prefix}J1" />
       <mechanicalReduction>1</mechanicalReduction>
