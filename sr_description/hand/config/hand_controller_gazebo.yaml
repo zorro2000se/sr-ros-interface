@@ -8,7 +8,7 @@ sh_ffj0_position_controller:
     position_deadband: 0.0
     friction_deadband: 0.0
     max_force: 1.0
-  type: sr_mechanism_controllers/SrhJointPositionController
+  type: effort_controllers/JointPositionController
 
 sh_ffj3_position_controller:
   joint: FFJ3
@@ -20,7 +20,7 @@ sh_ffj3_position_controller:
     position_deadband: 0.0
     friction_deadband: 0.0
     max_force: 1.0
-  type: sr_mechanism_controllers/SrhJointPositionController
+  type: effort_controllers/JointPositionController
 
 sh_ffj4_position_controller:
   joint: FFJ4
@@ -32,7 +32,7 @@ sh_ffj4_position_controller:
     position_deadband: 0.0
     friction_deadband: 0.0
     max_force: 1.0
-  type: sr_mechanism_controllers/SrhJointPositionController
+  type: effort_controllers/JointPositionController
 
 sh_lfj0_position_controller:
   joint: LFJ0
@@ -44,7 +44,7 @@ sh_lfj0_position_controller:
     position_deadband: 0.0
     friction_deadband: 0.0
     max_force: 1.0
-  type: sr_mechanism_controllers/SrhJointPositionController
+  type: effort_controllers/JointPositionController
 
 sh_lfj3_position_controller:
   joint: LFJ3
@@ -56,7 +56,7 @@ sh_lfj3_position_controller:
     position_deadband: 0.0
     friction_deadband: 0.0
     max_force: 1.0
-  type: sr_mechanism_controllers/SrhJointPositionController
+  type: effort_controllers/JointPositionController
 
 sh_lfj4_position_controller:
   joint: LFJ4
@@ -68,7 +68,7 @@ sh_lfj4_position_controller:
     position_deadband: 0.0
     friction_deadband: 0.0
     max_force: 1.0
-  type: sr_mechanism_controllers/SrhJointPositionController
+  type: effort_controllers/JointPositionController
 
 sh_lfj5_position_controller:
   joint: LFJ5
@@ -80,7 +80,7 @@ sh_lfj5_position_controller:
     position_deadband: 0.0
     friction_deadband: 0.0
     max_force: 1.0
-  type: sr_mechanism_controllers/SrhJointPositionController
+  type: effort_controllers/JointPositionController
 
 sh_mfj0_position_controller:
   joint: MFJ0
@@ -92,7 +92,7 @@ sh_mfj0_position_controller:
     position_deadband: 0.0
     friction_deadband: 0.0
     max_force: 1.0
-  type: sr_mechanism_controllers/SrhJointPositionController
+  type: effort_controllers/JointPositionController
 
 sh_mfj3_position_controller:
   joint: MFJ3
@@ -104,7 +104,7 @@ sh_mfj3_position_controller:
     position_deadband: 0.0
     friction_deadband: 0.0
     max_force: 1.0
-  type: sr_mechanism_controllers/SrhJointPositionController
+  type: effort_controllers/JointPositionController
 
 sh_mfj4_position_controller:
   joint: MFJ4
@@ -116,7 +116,7 @@ sh_mfj4_position_controller:
     position_deadband: 0.0
     friction_deadband: 0.0
     max_force: 1.0
-  type: sr_mechanism_controllers/SrhJointPositionController
+  type: effort_controllers/JointPositionController
 
 sh_rfj0_position_controller:
   joint: RFJ0
@@ -128,7 +128,7 @@ sh_rfj0_position_controller:
     position_deadband: 0.0
     friction_deadband: 0.0
     max_force: 1.0
-  type: sr_mechanism_controllers/SrhJointPositionController
+  type: effort_controllers/JointPositionController
 
 sh_rfj3_position_controller:
   joint: RFJ3
@@ -140,7 +140,7 @@ sh_rfj3_position_controller:
     position_deadband: 0.0
     friction_deadband: 0.0
     max_force: 1.0
-  type: sr_mechanism_controllers/SrhJointPositionController
+  type: effort_controllers/JointPositionController
 
 sh_rfj4_position_controller:
   joint: RFJ4
@@ -152,7 +152,7 @@ sh_rfj4_position_controller:
     position_deadband: 0.0
     friction_deadband: 0.0
     max_force: 1.0
-  type: sr_mechanism_controllers/SrhJointPositionController
+  type: effort_controllers/JointPositionController
 
 sh_thj1_position_controller:
   joint: THJ1
@@ -164,7 +164,7 @@ sh_thj1_position_controller:
     position_deadband: 0.0
     friction_deadband: 0.0
     max_force: 1.0
-  type: sr_mechanism_controllers/SrhJointPositionController
+  type: effort_controllers/JointPositionController
 
 sh_thj2_position_controller:
   joint: THJ2
@@ -176,7 +176,7 @@ sh_thj2_position_controller:
     position_deadband: 0.0
     friction_deadband: 0.0
     max_force: 1.0
-  type: sr_mechanism_controllers/SrhJointPositionController
+  type: effort_controllers/JointPositionController
 
 sh_thj3_position_controller:
   joint: THJ3
@@ -188,7 +188,7 @@ sh_thj3_position_controller:
     position_deadband: 0.0
     friction_deadband: 0.0
     max_force: 1.0
-  type: sr_mechanism_controllers/SrhJointPositionController
+  type: effort_controllers/JointPositionController
 
 sh_thj4_position_controller:
   joint: THJ4
@@ -200,7 +200,7 @@ sh_thj4_position_controller:
     position_deadband: 0.0
     friction_deadband: 0.0
     max_force: 2.0
-  type: sr_mechanism_controllers/SrhJointPositionController
+  type: effort_controllers/JointPositionController
 
 sh_thj5_position_controller:
   joint: THJ5
@@ -212,7 +212,7 @@ sh_thj5_position_controller:
     position_deadband: 0.0
     friction_deadband: 0.0
     max_force: 3.0
-  type: sr_mechanism_controllers/SrhJointPositionController
+  type: effort_controllers/JointPositionController
 
 sh_wrj1_position_controller:
   joint: WRJ1
@@ -224,7 +224,7 @@ sh_wrj1_position_controller:
     position_deadband: 0.0
     friction_deadband: 0.0
     max_force: 5.0
-  type: sr_mechanism_controllers/SrhJointPositionController
+  type: effort_controllers/JointPositionController
 
 sh_wrj2_position_controller:
   joint: WRJ2
@@ -236,4 +236,4 @@ sh_wrj2_position_controller:
     position_deadband: 0.0
     friction_deadband: 0.0
     max_force: 10.0
-  type: sr_mechanism_controllers/SrhJointPositionController
+  type: effort_controllers/JointPositionController

@@ -8,23 +8,28 @@
   <!-- prefix can be anything but usually is "r_" or  "l_" for right and left hands distinction -->
   <xacro:macro name="lfmetacarpal_transmission" params="muscletrans prefix" >
 
-   <!-- muscle hand -->
+    <!-- muscle hand -->
     <xacro:if value="${muscletrans}">
       <transmission type="sr_mechanism_model/SimpleTransmissionForMuscle" name="${prefix}lfmetacarpal_transmission">
-      <actuator name="${prefix}LFJ5" />
-      <joint name="${prefix}LFJ5" />
-      <mechanicalReduction>1</mechanicalReduction>
+        <actuator name="${prefix}LFJ5" />
+        <joint name="${prefix}LFJ5" />
+        <mechanicalReduction>1</mechanicalReduction>
       </transmission>
-    </xacro:if> 
+    </xacro:if>
     <!-- motor hand -->
     <xacro:unless value="${muscletrans}">
-      <transmission type="transmission_interface/SimpleTransmission" name="${prefix}lfmetacarpal_transmission">
-      <actuator name="${prefix}LFJ5" />
-      <joint name="${prefix}LFJ5" />
-      <mechanicalReduction>1</mechanicalReduction>
+      <transmission name="${prefix}lfmetacarpal_transmission">
+        <type>transmission_interface/SimpleTransmission</type>
+        <actuator name="${prefix}LFJ5">
+          <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+        <joint name="${prefix}LFJ5">
+          <hardwareInterface>EffortJointInterface</hardwareInterface>
+        </joint>
       </transmission>
-    </xacro:unless> 
-  
+
+    </xacro:unless>
+
   </xacro:macro>
-  
+
 </robot>
