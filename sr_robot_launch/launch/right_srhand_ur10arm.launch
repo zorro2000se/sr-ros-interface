@@ -83,8 +83,8 @@
       <arg name="use_xacro_prefix"
       value="$(arg use_xacro_prefix)" />
       <arg name="xacro_prefix" value="$(arg xacro_prefix)" />
-      <arg name="use_prefix" value="true" />
-      <arg name="hand_id" value="rh" />
+      <arg name="use_prefix" value="false" />
+      <arg name="hand_id" value="" />
     </include>
     <!-- real time control loop -->
     <!--
