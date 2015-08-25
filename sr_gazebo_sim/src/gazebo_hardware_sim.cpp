@@ -164,6 +164,20 @@ bool SrGazeboHWSim::initSim(const std::string& robot_namespace, ros::NodeHandle 
                             gazebo::physics::ModelPtr parent_model, const urdf::Model * const urdf_model,
                             std::vector<transmission_interface::TransmissionInfo> transmissions)
 {
+  // Hack for compatibility with Tiago. We remove transmissions that are not for right hand
+  std::vector<transmission_interface::TransmissionInfo>::iterator it;
+  for (it = transmissions.begin(); it != transmissions.end();)
+  {
+    if ((!it->joints_.empty()) && (it->joints_[0].name_.substr(0, 3) != "rh_"))
+    {
+      it = transmissions.erase(it);
+    }
+    else
+    {
+      ++it;
+    }
+  }
+
   this->addFakeTransmissionsForJ0(&transmissions);
   this->initializeFakeRobotState(urdf_model, transmissions);
 
