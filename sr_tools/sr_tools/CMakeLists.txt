@@ -4,9 +4,6 @@ project(sr_tools)
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
-find_package(catkin REQUIRED COMPONENTS
-  sr_grasp_fast_planner
-  sr_movements
-)
+find_package(catkin REQUIRED COMPONENTS)
 
 catkin_metapackage()

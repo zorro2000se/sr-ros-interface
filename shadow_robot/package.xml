@@ -1,8 +1,7 @@
 <package>
   <name>shadow_robot</name>
   <version>1.4.0</version>
-  <description>This stack regroups the different ros interfaces developped for Shadow Robot's
-  Hardware. It provides an interface to both simulated and real hardware.</description>
+  <description>This meta package is the recommended way of installing Shadow Robot packages.</description>
   <maintainer email="software@shadowrobot.com">Shadow Robot's software team</maintainer>
 
   <license>BSD</license>
@@ -21,22 +20,13 @@
 
 
   <!-- Dependencies needed after this package is compiled. -->
-  <run_depend>sr_description</run_depend>
-  <run_depend>sr_example</run_depend>
-  <run_depend>sr_gazebo_sim</run_depend>
-  <run_depend>sr_hand</run_depend>
-  <run_depend>sr_hardware_interface</run_depend>
-  <run_depend>sr_mechanism_controllers</run_depend>
-  <run_depend>sr_mechanism_model</run_depend>
-  <run_depend>sr_movements</run_depend>
-  <run_depend>sr_robot_msgs</run_depend>
-  <run_depend>sr_self_test</run_depend>
-  <run_depend>sr_tactile_sensors</run_depend>
-  <run_depend>sr_utilities</run_depend>
-  
+  <run_depend>sr_common</run_depend>
+  <run_depend>sr_core</run_depend>
+  <run_depend>sr_interface</run_depend>
+
 
   <!-- Dependencies needed only for running tests. -->
-  
+
   <export>
     <metapackage/>
   </export>

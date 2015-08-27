@@ -11,14 +11,7 @@
   <author email="ugo@shadowrobot.com">Ugo Cupcic</author>
 
   <buildtool_depend>catkin</buildtool_depend>
-  <build_depend>sr_gazebo_sim</build_depend>
-  <build_depend>sr_hand</build_depend>
-  <build_depend>sr_hardware_interface</build_depend>
-  <build_depend>sr_mechanism_controllers</build_depend>
-  <build_depend>sr_mechanism_model</build_depend>
-  <build_depend>sr_self_test</build_depend>
-  <build_depend>sr_tactile_sensors</build_depend>
-  <build_depend>sr_utilities</build_depend>
+
   <run_depend>sr_gazebo_sim</run_depend>
   <run_depend>sr_hand</run_depend>
   <run_depend>sr_hardware_interface</run_depend>

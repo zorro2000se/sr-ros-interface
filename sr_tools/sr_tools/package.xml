@@ -9,9 +9,9 @@
   <license>GPL</license>
 
   <author email="ugo@shadowrobot.com">Ugo Cupcic</author>
+
   <buildtool_depend>catkin</buildtool_depend>
-  <build_depend>sr_grasp_fast_planner</build_depend>
-  <build_depend>sr_movements</build_depend>
+
   <run_depend>sr_grasp_fast_planner</run_depend>
   <run_depend>sr_movements</run_depend>
 
