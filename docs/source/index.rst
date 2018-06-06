@@ -13,7 +13,7 @@
     Starting the robots <generated/sr_interface/sr_robot_launch/README>
     High Level Interface <generated/sr_interface/sr_robot_commander/README>
     Examples <generated/sr_interface/sr_example/README>
-    ROS Topics Decribed <ros_topics_description>
+    ROS Topics Decribed <generated/sr_core/sr_core/ros_topics_description>
 
 Shadow Robot's Documentation
 ========================================
